@@ -17,7 +17,7 @@ class OrderStatus extends Model
             'errortext' => ''
         ];
 
-        $sql = "SELECT commerce_cloud_pkg_db.get_cloud_order_Status_fn('" . $order_id . "', 'TEST') OrderStatus FROM dual";
+        $sql = "SELECT commerce_cloud_pkg_db.get_cloud_order_Status_fn('" . $order_id . "', 'LIVE') OrderStatus FROM dual";
 
         $query = DB::select(
             $sql

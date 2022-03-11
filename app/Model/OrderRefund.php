@@ -93,7 +93,7 @@ class OrderRefund extends Model
             'pspReference' => 'null',
             'reason' => 'null',
             'success' => 'null',
-            'test_live_mode' => 'TEST'
+            'test_live_mode' => 'LIVE'
             ];
     }
 }

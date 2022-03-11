@@ -126,7 +126,7 @@ class OrderSubmission extends Model
             'extra_date_9' => 'null',
             'extra_date_10' => 'null',
             'item_info_string' => 'null',
-            'test_live_mode' => 'TEST'
+            'test_live_mode' => 'LIVE'
             ];
     }
 }
