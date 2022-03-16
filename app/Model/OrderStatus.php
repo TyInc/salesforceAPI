@@ -22,12 +22,12 @@ class OrderStatus extends Model
         $query = DB::select(
             $sql
         );
-	
-	$resultArray = explode('&', $query[0]->orderstatus);
-        foreach ($resultArray as $resultData) {
-            $data = explode("=", $resultData);
-            $result[$data[0]] = $data[1];
+    $data = "";
+	$resultArray = explode('=', $query[0]->orderstatus,2);
+        foreach (explode(" ", $resultArray[1]) as $resultData) {
+            $data .= "<a>" . $resultData . "<a></br>";
         }
+        $result[$resultArray[0]] = $data;
 
         return $result;
     }
