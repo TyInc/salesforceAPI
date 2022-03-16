@@ -25,7 +25,7 @@ class OrderStatus extends Model
     $data = "";
 	$resultArray = explode('=', $query[0]->orderstatus,2);
         foreach (explode(" ", $resultArray[1]) as $resultData) {
-            $data .= "<a>" . $resultData . "<a></br>";
+            $data .= $resultData . "\n";
         }
         $result[$resultArray[0]] = $data;
 
