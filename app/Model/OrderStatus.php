@@ -24,9 +24,20 @@ class OrderStatus extends Model
         );
     $data = "";
 	$resultArray = explode('=', $query[0]->orderstatus,2);
-        foreach (explode(" ", $resultArray[1]) as $resultData) {
-            $data .= $resultData . "\n";
-        }
+    switch (strtoupper($resultArray[1])) {
+        case 'PROCESSING':
+        case 'CC REJECTED':
+        case 'SUBMITTED':
+            $data = "<p>" . $resultArray[1] . "</p>";
+            break;
+        default:
+            if (strpos(strtolower($resultArray[1]),'http') !== false) {
+                foreach (explode(" ", $resultArray[1]) as $resultData) {
+                    $data .= "<a href=$resultData>" . $resultData . "</a></br>";
+                }
+            }
+            else $data = "<p>Please contact customer service.</p>";
+    }
         $result[$resultArray[0]] = $data;
 
         return $result;
