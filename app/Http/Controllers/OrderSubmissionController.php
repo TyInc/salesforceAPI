@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Exception;
 use App\Model\OrderSubmission;
+use Illuminate\Support\Facades\Log;
 
 class OrderSubmissionController extends Controller
 {
@@ -59,6 +60,7 @@ class OrderSubmissionController extends Controller
             // Validate if we get everything we need
             foreach (self::REQUIRED_FIELDS as $validationItem) {
                 if (!array_key_exists($validationItem, $requestObject)) {
+                    $result['status'] = 400;
                     throw new Exception("missing required field: " . $validationItem);
                 }
             }
@@ -72,9 +74,10 @@ class OrderSubmissionController extends Controller
 
         } catch (\Exception $exception) {
             $result['message'] = $exception->getMessage();
+            Log::error($exception);
         }
 
-        return response()->json($result);
+        return response()->json($result, $result['status']);
 
     }
 
