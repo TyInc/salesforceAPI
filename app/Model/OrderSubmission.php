@@ -21,7 +21,7 @@ class OrderSubmission extends Model
 
         foreach ($request as $key => $value) {
             if (isset($defaultPayload[$key])) {
-                $defaultPayload[$key] = $value;
+                $defaultPayload[$key] = str_replace("'","''",$value);   //Change ' to '' to match Oracle syntax
             }
         }
 
