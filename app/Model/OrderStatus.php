@@ -22,12 +22,23 @@ class OrderStatus extends Model
         $query = DB::select(
             $sql
         );
-	
-	$resultArray = explode('&', $query[0]->orderstatus);
-        foreach ($resultArray as $resultData) {
-            $data = explode("=", $resultData);
-            $result[$data[0]] = $data[1];
-        }
+    $data = "";
+	$resultArray = explode('=', $query[0]->orderstatus,2);
+    switch (strtoupper($resultArray[1])) {
+        case 'PROCESSING':
+        case 'CC REJECTED':
+        case 'SUBMITTED':
+            $data = "<p>" . $resultArray[1] . "</p>";
+            break;
+        default:
+            if (strpos(strtolower($resultArray[1]),'http') !== false) {
+                foreach (explode(" ", $resultArray[1]) as $resultData) {
+                    $data .= "<a target=”_blank” href=$resultData>" . $resultData . "</a></br>";
+                }
+            }
+            else $data = "<p>Please contact customer service.</p>";
+    }
+        $result[$resultArray[0]] = $data;
 
         return $result;
     }
