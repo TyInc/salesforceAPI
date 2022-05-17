@@ -2,6 +2,7 @@
 namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class OrderStatus extends Model
 {
@@ -36,7 +37,11 @@ class OrderStatus extends Model
                     $data .= "<a target=”_blank” href=$resultData>" . $resultData . "</a></br>";
                 }
             }
-            else $data = "<p>Please contact customer service.</p>";
+            else{
+                $data = "<p>Please contact customer service.</p>";
+                Log::info("Failed to return order status for order: ".$order_id);
+                Log::info(json_encode($resultArray));
+            }
     }
         $result[$resultArray[0]] = $data;
 
