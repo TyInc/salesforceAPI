@@ -27,7 +27,7 @@ class OrderSubmission extends Model
 
         $sqlBindingValues = [];
         foreach ($defaultPayload as $key => $value) {
-            if (is_numeric($value)) {
+            if (is_numeric($value) && !in_array($key,['ship_to_zip','bill_to_zip','item_info_string'])) {
                 $sqlBindingValues[] = $value;
             } else {
                 $sqlBindingValues[] = "'" . $value . "'";
