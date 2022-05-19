@@ -21,13 +21,13 @@ class OrderSubmission extends Model
 
         foreach ($request as $key => $value) {
             if (isset($defaultPayload[$key])) {
-                $defaultPayload[$key] = $value;
+                $defaultPayload[$key] = str_replace("'","''",$value);   //Change ' to '' to match Oracle syntax
             }
         }
 
         $sqlBindingValues = [];
         foreach ($defaultPayload as $key => $value) {
-            if (is_numeric($value)) {
+            if (is_numeric($value) && !in_array($key,['ship_to_zip','bill_to_zip','item_info_string'])) {
                 $sqlBindingValues[] = $value;
             } else {
                 $sqlBindingValues[] = "'" . $value . "'";
