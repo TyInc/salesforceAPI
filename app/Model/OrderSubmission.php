@@ -46,6 +46,8 @@ class OrderSubmission extends Model
             $result[$data[0]] = $data[1];
         }
 
+        if ($result['status'] == 'ERROR' && strpos($result['errortext'],'Duplicate Order') !== false) $result['status'] = 'DUPLICATE';
+
         return $result;
     }
 
